@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: pink;
+            background-image: url(''); /* Replace with a cute background */
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        h1 {
+            color: red;
+            font-size: 32px;
+            animation: pulse 2s infinite alternate;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+        .yes {
+            background-color: red;
+            color: white;
+            position: relative;
+        }
+        .yes:hover {
+            animation: shake 0.5s infinite;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+        .no {
+            background-color: white;
+            color: red;
+            position: absolute;
+        }
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 24px;
+            animation: float 4s linear infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-500px); opacity: 0; }
+        }
+        .image {
+            width: 200px;
+            height: auto;
+            margin: 20px;
+            animation: scaleIn 1s forwards;
+        }
+        @keyframes scaleIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .confetti {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: #ff69b4;
+            animation: confettiFall 3s infinite;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+        .thank-you {
+            margin-top: 20px;
+            font-size: 24px;
+            color: red;
+            animation: fadeIn 2s forwards;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+    <script>
+        function moveButton() {
+            let x = Math.random() * window.innerWidth * 0.8;
+            let y = Math.random() * window.innerHeight * 0.8;
+            let noButton = document.getElementById("noButton");
+            noButton.style.left = x + "px";
+            noButton.style.top = y + "px";
+
+            // Change text humorously
+            let currentText = noButton.innerHTML;
+            if (currentText === "No") {
+                noButton.innerHTML = "Aba?";
+            } else if (currentText === "Ayaw mo?") {
+                noButton.innerHTML = "Really??";
+            } else {
+                noButton.innerHTML = "BAWAL!!";
+            }
+        }
+
+        function showHearts() {
+            // Play background music
+            let audio = new Audio('palagi.mp3');  // Replace with a love song URL
+            audio.play();
+
+            // Show hearts falling down
+            for (let i = 0; i < 20; i++) {
+                let heart = document.createElement("div");
+                heart.innerHTML = "❤️";
+                heart.classList.add("heart");
+                heart.style.left = Math.random() * window.innerWidth + "px";
+                heart.style.bottom = "-50px";
+                heart.style.fontSize = Math.random() * 30 + 10 + "px";
+                heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+                document.body.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 4000);
+            }
+
+            // Show Thank You message
+            let thankYouMessage = document.createElement("div");
+            thankYouMessage.classList.add("thank-you");
+            thankYouMessage.innerHTML = "Yay! I love you! ❤️";
+            document.body.appendChild(thankYouMessage);
+
+            // Add images after clicking "Yes"
+            showImages();
+
+            // Trigger confetti effect
+            triggerConfetti();
+        }
+
+        function showImages() {
+            // Array of image URLs
+            const imageUrls = [
+                'wow.jpg',  // Replace with your own image URLs
+                'iii.jpg',  // Replace with your own image URLs
+                'wiw.jpg'   // Replace with your own image URLs
+            ];
+
+            imageUrls.forEach(url => {
+                let img = document.createElement("img");
+                img.src = url;
+                img.classList.add("image");
+                document.body.appendChild(img);
+            });
+        }
+
+        function triggerConfetti() {
+            for (let i = 0; i < 100; i++) {
+                let confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+                confetti.style.left = Math.random() * window.innerWidth + "px";
+                confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Will You Be My Valentine? ❤️</h1>
+        <div class="buttons">
+            <button class="btn yes" onclick="showHearts()">Yes</button>
+            <button class="btn no" id="noButton" onmouseover="moveButton()">No</button>
+        </div>
+    </div>
+</body>
+</html>
